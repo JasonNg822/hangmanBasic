@@ -27,13 +27,14 @@ public class WordLoader {
             },
             {// sport
                 {"jogging", "swimming", "tennis", "badminton", "cycling", "golf", "football"},
-                {"hockey", "diving", "baseball", "bowling", "basketball", "pickleball", ""},
+                {"hockey", "diving", "baseball", "bowling", "basketball", "pickleball", "diving"},
                 {"fencing", "volleyball", "surfing", "archery", "billiards", "gymnastics", "rugby"},
             }
         };
 
-        int index = random.nextInt(words.length);
+        String [] category_level = words[category - 1][level - 1];
+        int index = random.nextInt(category_level.length);
         
-        return words[category - 1][level - 1][index];
+        return category_level[index];
     }
 }
