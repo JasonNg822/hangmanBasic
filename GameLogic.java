@@ -1,56 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class GameLogic extends GameUI{
+public class GameLogic extends HangmanBasic{
 
-    private static final Scanner input = new Scanner(System.in);
-
-    public static int categorys () {
-        println("Category: ");
-        println("1. Fruit");
-        println("2. Animal");
-        println("3. Country");
-        println("4. Sport");
-        String category;
-        while (true) { 
+    public static int choice(int min, int max){
+        String choose;
+        int number;
+        while (true){
             try {
-                print("Please enter a number 1 or 2 or 3 or 4: ");
-                category = input.nextLine();
-                if (!category.equals("1") && !category.equals("2") && !category.equals("3") && !category.equals("4")){
-                    continue;
-                }
-                else{
+                print("Please enter a number " + min + " - " + max + ":");
+                choose = input.nextLine();
+                number = Integer.parseInt(choose);
+                if (number <= max && number >= min){
                     break;
                 }
-            } catch (Exception e) {
-                println("Invalid input.");
-            }
-        }
-        return Integer.parseInt(category);
-    }
-
-    public static int level () {
-        println("\nLevel: ");
-        println("1. Easy");
-        println("2. Medium");
-        println("3. Hard");
-        String category;
-        while (true) { 
-            try {
-                print("Please enter a number 1 or 2 or 3: ");
-                category = input.nextLine();
-                if (!category.equals("1") && !category.equals("2") && !category.equals("3")){
-                    continue;
-                }
                 else{
-                    break;
+                    println("Invalid input, please enter a number " + min + " - " + max);
                 }
             } catch (Exception e) {
-                println("Invalid input.");
+                println("Invalid input, please enter a number " + min + " - " + max);
             }
         }
-        return Integer.parseInt(category);
+        return number;
     }
 
     // to get what user guess

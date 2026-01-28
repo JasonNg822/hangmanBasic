@@ -5,7 +5,7 @@ import java.util.Scanner;
 // to coordinate the overall game application functionality, (single player, computer random generate word)
 public class HangmanBasic extends GameUI{
 
-    private static final Scanner input = new Scanner(System.in);
+    protected static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args){
 
@@ -18,8 +18,10 @@ public class HangmanBasic extends GameUI{
             int number_of_guess_wrong = 0;
             List <Character> used_letter = new ArrayList<>();
             println("\n===== Welcome to Hangman game! =====");
-            int category = GameLogic.categorys();
-            int level = GameLogic.level();
+            categorys();
+            int category = GameLogic.choice(1, 4);
+            level();
+            int level = GameLogic.choice(1, 3);
             String word = WordLoader.get_word(category, level).toUpperCase().trim();
             boolean game_end = false;
 
@@ -48,7 +50,7 @@ public class HangmanBasic extends GameUI{
                     game_end = true;
                 }
                 // check if lose or not
-                if (GameLogic.basic_lose_logic(number_of_guess_wrong, word, game_end)){
+                else if (GameLogic.basic_lose_logic(number_of_guess_wrong, word, game_end)){
                     display_lose(word);
                     display_hangman(number_of_guess_wrong);
                     game_end = true;

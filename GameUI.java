@@ -6,6 +6,21 @@ public class GameUI {
         println("------------------------------------");
     }
 
+    public static void categorys () {
+        println("Category: ");
+        println("1. Fruit");
+        println("2. Animal");
+        println("3. Country");
+        println("4. Sport");
+    }
+
+    public static void level () {
+        println("\nLevel: ");
+        println("1. Easy");
+        println("2. Medium");
+        println("3. Hard");
+    }
+
     public static void hide_sentence (List <Character> used_letter, String word){
         print("Word:");
         println(GameLogic.hide_sentences(used_letter, word));
