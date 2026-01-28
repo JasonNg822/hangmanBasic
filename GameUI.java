@@ -8,7 +8,7 @@ public class GameUI {
 
     public static void hide_sentence (List <Character> used_letter, String word){
         print("Word:");
-        println(GameLogic.hide_sentence(used_letter, word));
+        println(GameLogic.hide_sentences(used_letter, word));
     }
 
     public static void incorrect (int number_of_guess_wrong){

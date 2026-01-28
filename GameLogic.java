@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GameLogic {
+public class GameLogic extends GameUI{
 
     private static final Scanner input = new Scanner(System.in);
 
@@ -87,7 +87,7 @@ public class GameLogic {
     }
 
     // change the word or sentence to a series of "_", if got symbol or number will display out the symbol or number 
-    public static String hide_sentence (List <Character> used_letter, String word){
+    public static String hide_sentences (List <Character> used_letter, String word){
         List <String> hide_letters = new ArrayList<>();
         String display;
         char[] words = word.toCharArray();
@@ -118,14 +118,5 @@ public class GameLogic {
         else{
             return game_end = false;
         }
-    }
-
-    public static void println(String a){
-        System.out.println(a);
-    }
-
-    public static void print(String a){
-        System.out.print(a);
-    }
-    
+    } 
 }

@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // to coordinate the overall game application functionality, (single player, computer random generate word)
-public class HangmanBasic {
+public class HangmanBasic extends GameUI{
 
     private static final Scanner input = new Scanner(System.in);
 
@@ -24,14 +24,14 @@ public class HangmanBasic {
             boolean game_end = false;
 
             while (game_end == false) { 
-                GameUI.footer();
-                GameUI.display_hangman(number_of_guess_wrong);
+                footer();
+                display_hangman(number_of_guess_wrong);
                 // print out "Word:" and _ or letter that user guess correct
-                GameUI.hide_sentence(used_letter, word);
+                hide_sentence(used_letter, word);
                 // print out left how many time user guess wrong like "Incorrect Guesses: 3/6"
-                GameUI.incorrect(number_of_guess_wrong);
+                incorrect(number_of_guess_wrong);
                 println("Used Letters: " + used_letters(used_letter));
-                GameUI.footer();
+                footer();
                 // the letter user guess
                 letter = GameLogic.letter();
                 number_of_guess_wrong = GameLogic.number_of_guess_wrong(number_of_guess_wrong, word, letter, used_letter);
@@ -41,16 +41,16 @@ public class HangmanBasic {
                 else{
                     used_letter.add(letter);
                 }
-                GameUI.footer();
+                footer();
                 // check if win or not
-                if (GameLogic.hide_sentence(used_letter, word).equals(word.trim())){
-                    GameUI.display_win(number_of_guess_wrong);
+                if (GameLogic.hide_sentences(used_letter, word).equals(word.trim())){
+                    display_win(number_of_guess_wrong);
                     game_end = true;
                 }
                 // check if lose or not
                 if (GameLogic.basic_lose_logic(number_of_guess_wrong, word, game_end)){
-                    GameUI.display_lose(word);
-                    GameUI.display_hangman(number_of_guess_wrong);
+                    display_lose(word);
+                    display_hangman(number_of_guess_wrong);
                     game_end = true;
                 }
             }
@@ -73,15 +73,5 @@ public class HangmanBasic {
             usedLetters.add(String.valueOf(letter));
         }
         return String.join(", ", usedLetters);
-    }
-
-    // to println String
-    public static void println(String a){
-        System.out.println(a);
-    }
-
-    // to print String
-    public static void print(String a){
-        System.out.print(a);
     }
 }
