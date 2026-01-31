@@ -101,8 +101,8 @@ public class HangmanBasic {
     // to convert list to String
     protected static String used_letters(List <Character> used_letter) {
         List <String> usedLetters = new ArrayList<>();
-        for (char letter : used_letter) {
-            usedLetters.add(String.valueOf(letter));
+        for (char letters : used_letter) {
+            usedLetters.add(String.valueOf(letters));
         }
         return String.join(", ", usedLetters);
     }
