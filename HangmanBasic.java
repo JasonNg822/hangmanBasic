@@ -34,7 +34,7 @@ public class HangmanBasic {
     public static void hangmanBasic(){
 
         continues = true;
-        int wrong = 0;
+        int wrong;
         String name;
 
         while(true){
