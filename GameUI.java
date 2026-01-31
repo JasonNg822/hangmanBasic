@@ -1,7 +1,18 @@
 import java.util.List;
+import java.util.Scanner;
 
 public class GameUI {
 
+    public static final Scanner input = new Scanner(System.in);
+
+    public static void println(String a){
+        System.out.println(a);
+    }
+
+    public static void print(String a){
+        System.out.print(a);
+    }
+    
     public static void footer (){
         println("------------------------------------");
     }
@@ -12,6 +23,7 @@ public class GameUI {
         println("2. Animal");
         println("3. Country");
         println("4. Sport");
+        println("5. Phrase or sentence");
     }
 
     public static void level () {
@@ -30,14 +42,14 @@ public class GameUI {
         println("Incorrect Guesses: " + number_of_guess_wrong + "/6");
     }
 
-    public static void display_lose (String word){
+    public static void display_win (String name){
         println("===== Game Over! =====");
-        println("Sorry, you LOST! The word was: " + word);
+        println("Congratulations, " + name + " have WON!");
     }
 
-    public static void display_win (int number_of_guess_wrong){
+    public static void display_lose (String name, String word){
         println("===== Game Over! =====");
-        println("Congratulations, you have WON!");
+        println("Sorry, " + name + " LOST! The word was: " + word);
     }
 
     // display the part of hangman figure as a tally mark  
@@ -107,13 +119,5 @@ public class GameUI {
                 println("=======");
                 break;
         }
-    }
-
-    public static void println(String a){
-        System.out.println(a);
-    }
-
-    public static void print(String a){
-        System.out.print(a);
     }
 }

@@ -1,75 +1,105 @@
+/*
+Hangman Basic Version
+Single Player
+Computer random generate a word from WordLoader.words (with category and level)
+Player only can guess wrong 5 times, guess wrong 6 times consider lose
+Player guess all the letter within 6 times then win
+Player got one hint chance
+*/
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 // to coordinate the overall game application functionality, (single player, computer random generate word)
-public class HangmanBasic extends GameUI{
+public class HangmanBasic {
 
-    protected static final Scanner input = new Scanner(System.in);
+    public static final Scanner input = new Scanner(System.in);
+    
+    protected static final int first_category = 1;
+    protected static final int last_category = 4;
+    protected static final int phrase = 5;
+    protected static final int min_level = 1;
+    protected static final int max_level = 3;
 
-    public static void main(String[] args){
+    protected static int number_of_guess_wrong;
+    protected static List <Character> used_letter;
 
-        boolean continues = true;
-        char letter;
-        String ans;
+    protected static boolean continues;
+    protected static char letter;
+    protected static String ans;
+
+    protected static String word;
+
+    public static void hangmanBasic(){
+
+        continues = true;
+        int wrong = 0;
+        String name;
+
+        while(true){
+            GameUI.print("\nPlease enter player name: ");
+            name = HangmanBasic.input.nextLine();
+            if (!name.trim().isEmpty()){
+                break;
+            }
+        }
 
         while (continues == true) {
-            // a variable to record number of user guess wrong
-            int number_of_guess_wrong = 0;
-            List <Character> used_letter = new ArrayList<>();
-            println("\n===== Welcome to Hangman game! =====");
-            categorys();
-            int category = GameLogic.choice(1, 4);
-            level();
-            int level = GameLogic.choice(1, 3);
-            String word = WordLoader.get_word(category, level).toUpperCase().trim();
+            wrong = 0;
+            used_letter = new ArrayList<>();
+
+            GameUI.println("\n===== Welcome to Hangman game! =====");
+            // let computer get the word from WordLoader
+            GameUI.categorys();
+            int category = GameLogic.choice(first_category, last_category);
+            GameUI.level();
+            int level = GameLogic.choice(min_level, max_level);
+            word = WordLoader.get_word(category, level).toUpperCase().trim();
             boolean game_end = false;
 
+            // round start
             while (game_end == false) { 
-                footer();
-                display_hangman(number_of_guess_wrong);
-                // print out "Word:" and _ or letter that user guess correct
-                hide_sentence(used_letter, word);
-                // print out left how many time user guess wrong like "Incorrect Guesses: 3/6"
-                incorrect(number_of_guess_wrong);
-                println("Used Letters: " + used_letters(used_letter));
-                footer();
-                // the letter user guess
+                GameUI.footer();
+                GameUI.display_hangman(wrong);
+                // print out "Word:" and _ or letter that player guess correct
+                GameUI.hide_sentence(used_letter, word);
+                // print out left how many time player guess wrong like "Incorrect Guesses: 3/6"
+                GameUI.incorrect(wrong);
+                GameUI.println("Used Letters: " + used_letters(used_letter));
+                GameUI.footer();
+                // the letter player guess
                 letter = GameLogic.letter();
-                number_of_guess_wrong = GameLogic.number_of_guess_wrong(number_of_guess_wrong, word, letter, used_letter);
+                wrong = GameLogic.number_of_guess_wrong(wrong, word, letter, used_letter);
                 if (used_letter.contains(letter)){
                     continue;
                 }
                 else{
                     used_letter.add(letter);
                 }
-                footer();
+                GameUI.footer();
                 // check if win or not
-                if (GameLogic.hide_sentences(used_letter, word).equals(word.trim())){
-                    display_win(number_of_guess_wrong);
+                if (GameLogic.basic_win_logic(used_letter, word, name)){
                     game_end = true;
                 }
                 // check if lose or not
-                else if (GameLogic.basic_lose_logic(number_of_guess_wrong, word, game_end)){
-                    display_lose(word);
-                    display_hangman(number_of_guess_wrong);
+                else if (GameLogic.basic_lose_logic(wrong, word, name)){
                     game_end = true;
                 }
             }
             do {
-                print("\nYou want to continue for next game? (y/n): "); 
+                GameUI.print("\nYou want to continue for next game? (y/n): "); 
                 ans = input.nextLine();
             } while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n"));
             if (ans.equalsIgnoreCase("n")){
-                println("");
+                GameUI.println("");
                 continues = false;
             }
         }
-        input.close();
     }
 
     // to convert list to String
-    public static String used_letters(List <Character> used_letter) {
+    protected static String used_letters(List <Character> used_letter) {
         List <String> usedLetters = new ArrayList<>();
         for (char letter : used_letter) {
             usedLetters.add(String.valueOf(letter));
